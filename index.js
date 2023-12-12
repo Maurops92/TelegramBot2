@@ -9,6 +9,15 @@ const apiId = parseInt(process.env.BOT_API);
 const apiHash = process.env.BOT_API_HASH;
 const stringSession = new StringSession(process.env.STRING_SESSION);
 
+setInterval (async ()=>{
+  try {
+    console.log('Intervalo para que no se muera el servidor');
+    await axios.get(`https://telegrambot-mauro.onrender.com`);
+  } catch (error) {
+    console.log('Error: ', error) 
+  }
+},600000)
+
 (async () => {
   try {
     const client = new TelegramClient(stringSession, apiId, apiHash, {
