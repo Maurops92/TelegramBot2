@@ -26,15 +26,25 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
 
     client.addEventHandler(async (event) => {
       try {
-        console.log('Evento', event);
         const channels = [];
-        const channelIdfrom = event.message.peerId.userId
-        ? event.message.peerId.userId.value
-        : event.message.peerId.chatId
-          ? event.message.peerId.chatId.value
-          : event.message.peerId.channelId.value;
-      
-        //console.log('Id del channel', channelIdfrom);
+        const userId = event.message.peerId?.userId?.value
+        const chatId = event.message.peerId?.chatId?.value
+        const channelId = event.message.peerId?.channelId?.value
+        let identifier = ''
+        let fromId = ''
+
+        if (userId) {
+          identifier = userId;
+          fromId = event.originalUpdate.userId;
+        } else if (chatId) {
+          identifier = chatId
+          fromId = event.originalUpdate.fromId;
+        } else {
+          identifier = channelId,
+            fromId = channelId
+        }
+        console.log('identifier:', identifier);
+        console.log('fromId:', fromId);
 
         const newBotMauro = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -49,7 +59,6 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(criptoNoticias.fullChat.id.value);
-        //console.log('Cripto Noticias_', criptoNoticias.fullChat.id.value);
 
         const diarioBitcoin = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -57,7 +66,6 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(diarioBitcoin.fullChat.id.value);
-        //console.log('Diario Bitcoin:', diarioBitcoin.fullChat.id.value);
 
         const finanzasArgy = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -65,7 +73,6 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(finanzasArgy.fullChat.id.value);
-        //console.log('Finanzas Argy:', finanzasArgy.fullChat.id.value);
 
         const investmentNewsEsp = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -73,7 +80,6 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(investmentNewsEsp.fullChat.id.value);
-        //console.log('Investment News Esp:', investmentNewsEsp.fullChat.id.value);
 
         const coinMarketCap = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -81,7 +87,6 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(coinMarketCap.fullChat.id.value);
-        //console.log('Coin Market Cap Announcements:', coinMarketCap.fullChat.id.value);
 
         const coinTelegraph = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -89,7 +94,6 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(coinTelegraph.fullChat.id.value);
-        //console.log('Coin Telegraph:', coinTelegraph.fullChat.id.value);
 
         const axtronOK = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -97,31 +101,22 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(axtronOK.fullChat.id.value);
-        //console.log('AxtronOK:', axtronOK.fullChat.id.value);
-
 
         channels.push(4055580763n);
-        
-        //console.log('Todos los channels', channels);
-
-        const fromId = event.originalUpdate.fromId
-        
         //toEntity criptocontador1
-        
-        if (channels.some(i => i === channelIdfrom)) {
+
+        if (channels.some(i => i === identifier)) {
           const toEntity = await client.getEntity("Maurops");
           const fromEntity = await client.getInputEntity(fromId)
           const forwardMessages = await client.invoke(
             new Api.messages.ForwardMessages({
-
               fromPeer: fromEntity,
               id: [event.message.id],
               toPeer: toEntity
-
             }))
-          console.log('Mensaje enviado de forward');;
+          console.log(`Mensaje reenviado con exito!!! `);;
         }
-        
+
       } catch (error) {
         console.error('Error en el handler:', error);
       }
@@ -131,9 +126,3 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
     console.error('Error de coneccion:', error);
   }
 })();
-
-
-// fromId: Integer { value: 1062229382n },
-//chatId: Integer { value: 4082385983n },
-// id: Integer { value: 1122502889n }
-// id newMauro =  id: Integer { value: 1998056779n },
