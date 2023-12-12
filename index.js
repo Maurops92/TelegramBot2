@@ -26,10 +26,15 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
 
     client.addEventHandler(async (event) => {
       try {
+        console.log('Evento', event);
         const channels = [];
-        const channelIdfrom = event.message.peerId.chatId? event.message.peerId.chatId.value : event.originalUpdate.message.peerId.channelId.value
-       // console.log('Evento enviado por uno mismo' , event);
-       // console.log('Id del channel', channelIdfrom);
+        const channelIdfrom = event.message.peerId.userId
+        ? event.message.peerId.userId.value
+        : event.message.peerId.chatId
+          ? event.message.peerId.chatId.value
+          : event.message.peerId.channelId.value;
+      
+        //console.log('Id del channel', channelIdfrom);
 
         const newBotMauro = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -37,7 +42,22 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(newBotMauro.fullChat.id.value);
-        
+
+        const criptoNoticias = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "criptonoticias",
+          })
+        );
+        channels.push(criptoNoticias.fullChat.id.value);
+        //console.log('Cripto Noticias_', criptoNoticias.fullChat.id.value);
+
+        const diarioBitcoin = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "diariobitcoin",
+          })
+        );
+        channels.push(diarioBitcoin.fullChat.id.value);
+        //console.log('Diario Bitcoin:', diarioBitcoin.fullChat.id.value);
 
         const finanzasArgy = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -45,40 +65,61 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
           })
         );
         channels.push(finanzasArgy.fullChat.id.value);
-        
+        //console.log('Finanzas Argy:', finanzasArgy.fullChat.id.value);
+
+        const investmentNewsEsp = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "investmentNewsEsp",
+          })
+        );
+        channels.push(investmentNewsEsp.fullChat.id.value);
+        //console.log('Investment News Esp:', investmentNewsEsp.fullChat.id.value);
+
+        const coinMarketCap = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "CoinMarketCapAnnouncements",
+          })
+        );
+        channels.push(coinMarketCap.fullChat.id.value);
+        //console.log('Coin Market Cap Announcements:', coinMarketCap.fullChat.id.value);
+
         const coinTelegraph = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "cointelegraph_es",
           })
         );
         channels.push(coinTelegraph.fullChat.id.value);
-        
-        const criptoNoticias = await client.invoke(
+        //console.log('Coin Telegraph:', coinTelegraph.fullChat.id.value);
+
+        const axtronOK = await client.invoke(
           new Api.channels.GetFullChannel({
-            channel: "criptonoticias",
+            channel: "AxtronOK",
           })
         );
-        channels.push(criptoNoticias.fullChat.id.value);
-        console.log('cripto noticias ID' , criptoNoticias.fullChat.id.value);
+        channels.push(axtronOK.fullChat.id.value);
+        //console.log('AxtronOK:', axtronOK.fullChat.id.value);
+
 
         channels.push(4055580763n);
+        
+        //console.log('Todos los channels', channels);
 
-        const mauroBotId = { value: 4082385983n };
-
-        const grupo = await client.invoke(new Api.messages.GetFullChat({
-          chatId: mauroBotId.value
-        }));
-
-        console.log(channels);
-
+        const fromId = event.originalUpdate.fromId
+        
+        //toEntity criptocontador1
+        
         if (channels.some(i => i === channelIdfrom)) {
-          client.sendMessage(
-            newBotMauro.fullChat.id.value,
-            {
-              message: `Enviando mensaje copiado  ${event.message.message}  `,
-              file: event.message.media
-            });
-          console.log('Mensaje copiado y enviado con exito');
+          const toEntity = await client.getEntity("Maurops");
+          const fromEntity = await client.getInputEntity(fromId)
+          const forwardMessages = await client.invoke(
+            new Api.messages.ForwardMessages({
+
+              fromPeer: fromEntity,
+              id: [event.message.id],
+              toPeer: toEntity
+
+            }))
+          console.log('Mensaje enviado de forward');;
         }
         
       } catch (error) {
