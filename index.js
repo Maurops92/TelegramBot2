@@ -3,6 +3,7 @@ const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions/index.js");
 const input = require("input");
 const { NewMessage } = require('telegram/events');
+const { axios } = require ('axios')
 
 
 const apiId = parseInt(process.env.BOT_API);
