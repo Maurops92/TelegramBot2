@@ -3,7 +3,7 @@ const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions/index.js");
 const input = require("input");
 const { NewMessage } = require('telegram/events');
-const { axios } = require ('axios')
+const axios  = require ('axios')
 
 
 const apiId = parseInt(process.env.BOT_API);
@@ -13,7 +13,6 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
 const fetchData = async () => {
   try {
     console.log('Intervalo para que no se muera el servidor');
-    await axios.get(`https://telegrambot-mauro.onrender.com`);
   } catch (error) {
     console.log('Error: ', error);
   }
