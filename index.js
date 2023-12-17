@@ -3,23 +3,23 @@ const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions/index.js");
 const input = require("input");
 const { NewMessage } = require('telegram/events');
-const axios  = require ('axios')
+
 
 
 const apiId = parseInt(process.env.BOT_API);
 const apiHash = process.env.BOT_API_HASH;
 const stringSession = new StringSession(process.env.STRING_SESSION);
 
-const fetchData = async () => {
+/*const fetchData = async () => {
   try {
     console.log('Intervalo para que no se muera el servidor');
   } catch (error) {
     console.log('Error: ', error);
   }
-};
+}
 
 setInterval(() => {
-  setTimeout(fetchData, 0);}, 600000);
+  setTimeout(fetchData, 0);}, 600000);*/
 
 (async () => {
   try {
