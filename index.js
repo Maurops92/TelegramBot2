@@ -33,10 +33,7 @@ const startTelegramClient = async () => {
         const channelId = event.message.peerId?.channelId?.value
         let identifier = ''
         let fromId = ''
-        console.log('Evento', event.message);
         
-       
-
         const newBotMauro = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "newBotMauro",
