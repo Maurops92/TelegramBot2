@@ -10,18 +10,7 @@ const apiId = parseInt(process.env.BOT_API);
 const apiHash = process.env.BOT_API_HASH;
 const stringSession = new StringSession(process.env.STRING_SESSION);
 
-/*const fetchData = async () => {
-  try {
-    console.log('Intervalo para que no se muera el servidor');
-  } catch (error) {
-    console.log('Error: ', error);
-  }
-}
-
-setInterval(() => {
-  setTimeout(fetchData, 0);}, 600000);*/
-
-(async () => {
+const startTelegramClient = async () => {
   try {
     const client = new TelegramClient(stringSession, apiId, apiHash, {
       connectionRetries: 5,
@@ -137,4 +126,6 @@ setInterval(() => {
   } catch (error) {
     console.error('Error de coneccion:', error);
   }
-})();
+};
+
+module.exports = {startTelegramClient}
