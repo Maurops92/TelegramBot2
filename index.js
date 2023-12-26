@@ -39,49 +39,49 @@ const startTelegramClient = async () => {
             channel: "newBotMauro",
           })
         );
-        channels.push(newBotMauro.fullChat.id.valueOf());
+        channels.push(newBotMauro.fullChat.id.value);
 
         const criptoNoticias = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "criptonoticias",
           })
         );
-        channels.push(criptoNoticias.fullChat.id.valueOf());
+        channels.push(criptoNoticias.fullChat.id.value);
 
         const diarioBitcoin = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "diariobitcoin",
           })
         );
-        channels.push(diarioBitcoin.fullChat.id.valueOf());
+        channels.push(diarioBitcoin.fullChat.id.value);
 
         const finanzasArgy = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "FinanzasArgy",
           })
         );
-        channels.push(finanzasArgy.fullChat.id.valueOf());
+        channels.push(finanzasArgy.fullChat.id.value);
 
         const investmentNewsEsp = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "investmentNewsEsp",
           })
         );
-        channels.push(investmentNewsEsp.fullChat.id.valueOf());
+        channels.push(investmentNewsEsp.fullChat.id.value);
 
         const coinMarketCap = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "CoinMarketCapAnnouncements",
           })
         );
-        channels.push(coinMarketCap.fullChat.id.valueOf());
+        channels.push(coinMarketCap.fullChat.id.value);
 
         const coinTelegraph = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "cointelegraph_es",
           })
         );
-        channels.push(coinTelegraph.fullChat.id.valueOf());
+        channels.push(coinTelegraph.fullChat.id.value);
 
         const axtronOK = await client.invoke(
           new Api.channels.GetFullChannel({
@@ -89,23 +89,28 @@ const startTelegramClient = async () => {
           })
         );
         channels.push(axtronOK.fullChat.id.value);
-        const id = axtronOK.fullChat.id.valueOf();
-        console.log('AxtronOk', id);
+
         channels.push(4055580763n);
         //toEntity criptocontador1
-
+        console.log(event);
         if (userId) {
           identifier = userId;
-          fromId = event.originalUpdate.userId;
+          fromId = event.message.fromId.userId;
+          console.log('Viene del userID');
         } else if (chatId) {
           identifier = chatId
-          fromId = event.originalUpdate.fromId;
+          fromId = event.message.fromId.userId;
+          console.log('Viene del chatID');
         } else {
           identifier = channelId,
           fromId = channelId
+          console.log('Viene del channelId');
         }
+
         console.log('identifier:', identifier);
         console.log('fromId:', fromId);
+
+
         if (channels.some(i => i === identifier)) {
           const toEntity = await client.getEntity("Maurops");
           const fromEntity = await client.getInputEntity(fromId)
