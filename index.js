@@ -33,6 +33,69 @@ const startTelegramClient = async () => {
         const channelId = event.message.peerId?.channelId?.value
         let identifier = ''
         let fromId = ''
+        console.log('Evento', event.message);
+        
+       
+
+        const newBotMauro = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "newBotMauro",
+          })
+        );
+        channels.push(newBotMauro.fullChat.id.valueOf());
+
+        const criptoNoticias = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "criptonoticias",
+          })
+        );
+        channels.push(criptoNoticias.fullChat.id.valueOf());
+
+        const diarioBitcoin = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "diariobitcoin",
+          })
+        );
+        channels.push(diarioBitcoin.fullChat.id.valueOf());
+
+        const finanzasArgy = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "FinanzasArgy",
+          })
+        );
+        channels.push(finanzasArgy.fullChat.id.valueOf());
+
+        const investmentNewsEsp = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "investmentNewsEsp",
+          })
+        );
+        channels.push(investmentNewsEsp.fullChat.id.valueOf());
+
+        const coinMarketCap = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "CoinMarketCapAnnouncements",
+          })
+        );
+        channels.push(coinMarketCap.fullChat.id.valueOf());
+
+        const coinTelegraph = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "cointelegraph_es",
+          })
+        );
+        channels.push(coinTelegraph.fullChat.id.valueOf());
+
+        const axtronOK = await client.invoke(
+          new Api.channels.GetFullChannel({
+            channel: "AxtronOK",
+          })
+        );
+        channels.push(axtronOK.fullChat.id.value);
+        const id = axtronOK.fullChat.id.valueOf();
+        console.log('AxtronOk', id);
+        channels.push(4055580763n);
+        //toEntity criptocontador1
 
         if (userId) {
           identifier = userId;
@@ -42,70 +105,10 @@ const startTelegramClient = async () => {
           fromId = event.originalUpdate.fromId;
         } else {
           identifier = channelId,
-            fromId = channelId
+          fromId = channelId
         }
         console.log('identifier:', identifier);
         console.log('fromId:', fromId);
-
-        const newBotMauro = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "newBotMauro",
-          })
-        );
-        channels.push(newBotMauro.fullChat.id.value);
-
-        const criptoNoticias = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "criptonoticias",
-          })
-        );
-        channels.push(criptoNoticias.fullChat.id.value);
-
-        const diarioBitcoin = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "diariobitcoin",
-          })
-        );
-        channels.push(diarioBitcoin.fullChat.id.value);
-
-        const finanzasArgy = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "FinanzasArgy",
-          })
-        );
-        channels.push(finanzasArgy.fullChat.id.value);
-
-        const investmentNewsEsp = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "investmentNewsEsp",
-          })
-        );
-        channels.push(investmentNewsEsp.fullChat.id.value);
-
-        const coinMarketCap = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "CoinMarketCapAnnouncements",
-          })
-        );
-        channels.push(coinMarketCap.fullChat.id.value);
-
-        const coinTelegraph = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "cointelegraph_es",
-          })
-        );
-        channels.push(coinTelegraph.fullChat.id.value);
-
-        const axtronOK = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "AxtronOK",
-          })
-        );
-        channels.push(axtronOK.fullChat.id.value);
-
-        channels.push(4055580763n);
-        //toEntity criptocontador1
-
         if (channels.some(i => i === identifier)) {
           const toEntity = await client.getEntity("Maurops");
           const fromEntity = await client.getInputEntity(fromId)
