@@ -92,7 +92,7 @@ const startTelegramClient = async () => {
 
         channels.push(4055580763n);
         //toEntity criptocontador1
-        console.log(event);
+        
         if (userId) {
           identifier = userId;
           fromId = event.message.fromId.userId;
