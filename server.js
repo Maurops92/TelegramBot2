@@ -1,5 +1,6 @@
 const express = require('express');
 const { startTelegramClient } = require('.');
+const { default: axios } = require('axios');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -13,7 +14,8 @@ app.listen(port, () => {
   startTelegramClient();
 
 
-  setInterval(() => {
+  setInterval( async () => {
     console.log('Servidor vivo');
+    await axios.get('https://telegrambot-mauro.onrender.com')
   }, 180000);
 });
