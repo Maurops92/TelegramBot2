@@ -22,6 +22,7 @@ const startTelegramClient = async () => {
         await input.text("Please enter the code you received: "),
       onError: (err) => console.log(err),
     });
+    console.log(client.session.save());
 
     await client.connect();
 
@@ -133,4 +134,4 @@ const startTelegramClient = async () => {
   }
 };
 
-module.exports = {startTelegramClient}
+//module.exports = {startTelegramClient}
