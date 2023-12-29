@@ -11,18 +11,30 @@
   <div class="container">
     <h2 class="mt-4">Telegram StringSession Generator</h2>
     <form id="generateForm">
-      <div class="form-group">
-        <label for="apiId">API ID:</label>
-        <input type="text" class="form-control" id="apiIdInput" required>
+      <div id="apiIdHashSection">
+        <p>Obtén el API ID y el API Hash de la siguiente página: <a href="https://my.telegram.org/apps" target="_blank">https://my.telegram.org/apps</a></p>
+        <div class="form-group">
+          <label for="apiId">API ID:</label>
+          <input type="text" class="form-control" id="apiIdInput" required>
+        </div>
+        <div class="form-group">
+          <label for="apiHash">API Hash:</label>
+          <input type="text" class="form-control" id="apiHashInput" required>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Número de Teléfono:</label>
+          <input type="text" class="form-control" id="phoneNumberInput" placeholder="+5493812111569" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <input type="password" class="form-control" id="passwordInput" required autocomplete="current-password">
+        </div>
+        <button type="button" class="btn btn-primary" id="apiIdHashSubmitButton">Enviar</button>
       </div>
-      <div class="form-group">
-        <label for="apiHash">API Hash:</label>
-        <input type="text" class="form-control" id="apiHashInput" required>
-      </div>
-      <button type="button" class="btn btn-primary" id="submitButton">Enviar</button>
+
       <div id="phoneCodeSection" style="display: none;">
         <div class="form-group">
-          <label for="phoneCode">Phone Code:</label>
+          <label for="phoneCode">Código de Teléfono:</label>
           <input type="text" class="form-control" id="phoneCodeInput" required>
         </div>
         <button type="button" class="btn btn-success" id="generateSessionButton">Generar StringSession</button>
@@ -30,7 +42,7 @@
     </form>
     <div id="result" class="mt-3"></div>
   </div>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="./script.js"></script>
 </body>

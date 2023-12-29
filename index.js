@@ -4,22 +4,17 @@ const { StringSession } = require("telegram/sessions/index.js");
 const input = require("input");
 const { NewMessage } = require('telegram/events');
 
-
-
-const apiId = parseInt(process.env.BOT_API);
-const apiHash = process.env.BOT_API_HASH;
-const stringSession = new StringSession(process.env.STRING_SESSION);
-
-const startTelegramClient = async () => {
+let stringSession= new StringSession('')
+const startTelegramClient = async (apiId,apiHash,phoneNumber,password) => {
+  console.log('Iniciando Telegram client');
   try {
     const client = new TelegramClient(stringSession, apiId, apiHash, {
       connectionRetries: 5,
     });
     await client.start({
-      phoneNumber: '+5492615534440',
-      password: process.env.PASSWORD,
-      phoneCode: async () =>
-        await input.text("Please enter the code you received: "),
+      phoneNumber:phoneNumber,
+      password: password,
+      phoneCode: async () => await input.text('Ingrese el codigo que recibio'),
       onError: (err) => console.log(err),
     });
     console.log(client.session.save());
@@ -134,4 +129,4 @@ const startTelegramClient = async () => {
   }
 };
 
-//module.exports = {startTelegramClient}
+module.exports = {startTelegramClient};
