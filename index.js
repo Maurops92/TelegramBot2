@@ -16,13 +16,13 @@ const startTelegramClient = async () => {
       connectionRetries: 5,
     });
     await client.start({
-      phoneNumber: '+5492615534440',
+      phoneNumber:process.env.PHONE_NUMBER,
       password: process.env.PASSWORD,
       phoneCode: async () =>
         await input.text("Please enter the code you received: "),
       onError: (err) => console.log(err),
     });
-
+    console.log(client.session.save());
     await client.connect();
 
     client.addEventHandler(async (event) => {
@@ -90,7 +90,7 @@ const startTelegramClient = async () => {
         );
         channels.push(axtronOK.fullChat.id.value);
 
-        channels.push(4055580763n);
+
         //toEntity criptocontador1
         
         if (userId) {
@@ -112,7 +112,7 @@ const startTelegramClient = async () => {
 
 
         if (channels.some(i => i === identifier)) {
-          const toEntity = await client.getEntity("Maurops");
+          const toEntity = await client.getEntity("criptocontador1");
           const fromEntity = await client.getInputEntity(fromId)
           const forwardMessages = await client.invoke(
             new Api.messages.ForwardMessages({
