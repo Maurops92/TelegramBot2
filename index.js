@@ -112,7 +112,7 @@ const startTelegramClient = async () => {
 
 
         if (channels.some(i => i === identifier)) {
-          const toEntity = await client.getEntity("Maurops");
+          const toEntity = await client.getEntity("Test Crypto");
           const fromEntity = await client.getInputEntity(fromId)
           const forwardMessages = await client.invoke(
             new Api.messages.ForwardMessages({
