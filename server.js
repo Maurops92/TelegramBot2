@@ -14,7 +14,7 @@ app.listen(port, () => {
   startTelegramClient();
 
 
-  setInterval( async () => {
+setInterval( async () => {
     console.log('Servidor vivo');
     await axios.get('https://telegrambot-mauro.onrender.com')
   }, 180000);

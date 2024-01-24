@@ -17,7 +17,7 @@ const startTelegramClient = async () => {
     });
     await client.start({
       phoneNumber:process.env.PHONE_NUMBER,
-      password: process.env.PASSWORD,
+      password: async () => await input.text("Please enter your password: "),
       phoneCode: async () =>
         await input.text("Please enter the code you received: "),
       onError: (err) => console.log(err),
@@ -34,12 +34,12 @@ const startTelegramClient = async () => {
         let identifier = ''
         let fromId = ''
         
-        const newBotMauro = await client.invoke(
+        /*const newBotMauro = await client.invoke(
           new Api.channels.GetFullChannel({
             channel: "newBotMauro",
           })
         );
-        channels.push(newBotMauro.fullChat.id.value);
+        channels.push(newBotMauro.fullChat.id.value);*/
 
         const criptoNoticias = await client.invoke(
           new Api.channels.GetFullChannel({
