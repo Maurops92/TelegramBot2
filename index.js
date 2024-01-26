@@ -22,7 +22,7 @@ const startTelegramClient = async () => {
         await input.text("Please enter the code you received: "),
       onError: (err) => console.log(err),
     });
-    console.log(client.session.save());
+    //console.log(client.session.save());
     await client.connect();
 
     client.addEventHandler(async (event) => {
@@ -82,14 +82,6 @@ const startTelegramClient = async () => {
           })
         );
         channels.push(coinTelegraph.fullChat.id.value);
-
-        const axtronOK = await client.invoke(
-          new Api.channels.GetFullChannel({
-            channel: "AxtronOK",
-          })
-        );
-        channels.push(axtronOK.fullChat.id.value);
-
 
         //toEntity criptocontador1
         
